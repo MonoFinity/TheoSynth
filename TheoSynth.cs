@@ -1,10 +1,11 @@
 ﻿using Jacobi.Vst.Core;
-using Jacobi.Vst.Plugin.Framework;
+using Jacobi.Vst.Plugin.Framework.Plugin;
+using Jacobi.Vst.Plugin.Interop;
 using System;
 
 namespace TheoSynth
 {
-    public class TheoSynth : VstPluginBase
+    public class TheoSynth : VstPlugin
     {
         private readonly SineSynth _sineSynth;
 
