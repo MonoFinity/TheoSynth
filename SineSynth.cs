@@ -1,5 +1,7 @@
 ﻿using Jacobi.Vst.Core;
-using Jacobi.Vst.Framework;
+using Jacobi.Vst.Plugin.Framework;
+using Jacobi.Vst.Plugin.Interop;
+
 using System;
 
 namespace TheoSynth
@@ -10,12 +12,39 @@ namespace TheoSynth
         private double _frequency = 440; // Default to A4 note
         private readonly double _twoPi = 2 * Math.PI;
         private bool _noteOn;
-        public int SampleRate { get; private set; } = 44100; // Default to 44.1kHz
+        public float SampleRate { get; set; } = 44100; // Default to 44.1kHz
         public float Gain { get; set; } = 0.5f; // default gain
 
         // Define proper channel counts
-        int IVstPluginAudioProcessor.ChannelCount => 2; // stereo audio channel
+        int IVstPluginAudioProcessor.OutputCount => 2; // stereo audio channel
         int IVstMidiProcessor.ChannelCount => 1; // mono MIDI channel
+
+
+
+
+        public int InputCount => 2;  // Let's say 2 input channels for stereo
+        public int OutputCount => 2; // 2 output channels for stereo
+        public int TailSize => 0;    // No tail size, for simplicity
+        public bool NoSoundInStop => true; // No sound when input is silence
+
+        private float _sampleRate = 44100f; // Default sample rate
+
+
+        private int _blockSize = 1024; // Default block size
+        public int BlockSize
+        {
+            get { return _blockSize; }
+            set { _blockSize = value; } // Update internal structures if needed
+        }
+
+
+
+        public bool SetPanLaw(VstPanLaw type, float gain)
+        {
+            // Assume we do not support setting the pan law
+            return false;
+        }
+
 
         public void Process(VstAudioBuffer[] inChannels, VstAudioBuffer[] outChannels)
         {
@@ -85,5 +114,6 @@ namespace TheoSynth
             Process(inChannels, outChannels);
             return true;
         }
+
     }
 }

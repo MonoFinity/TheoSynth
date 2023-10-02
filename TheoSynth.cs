@@ -1,6 +1,5 @@
 ﻿using Jacobi.Vst.Core;
-using Jacobi.Vst.Framework;
-using Jacobi.Vst.Framework.Plugin;
+using Jacobi.Vst.Plugin.Framework;
 using System;
 
 namespace TheoSynth
